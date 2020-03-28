@@ -48,6 +48,15 @@ Put core functions of the app inside euphemia-solver
 Modules and functions to run the web application inside euphemia-web
 
 ## Usage
+### Web
+After you run and login into the docker container, run the below commands, and point your browser to 127.0.0.1
+(run in development and local mode, docker run -it -v ~/webdev/python/euphemia:/opt/euphemia euphemia:dev)
+```
+export FLASK_APP=euphemiaweb
+export FLASK_ENV=development
+pip install -e .
+flask run --host=0.0.0.0
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
