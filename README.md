@@ -41,6 +41,12 @@ pip install flask flask-restful flask-sqlalchemy flask-migrate celery
 pip freeze > requirements.txt
 ```
 
+## Main app functions
+Put core functions of the app inside euphemia-solver
+
+## Web app function
+Modules and functions to run the web application inside euphemia-web
+
 ## Usage
 
 ## Contributing
