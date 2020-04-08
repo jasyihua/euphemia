@@ -1,0 +1,39 @@
+FROM python:3.7-alpine as base
+ARG PROJECT_NAME=euphemia
+ENV PROJECT_NAME ${PROJECT_NAME}
+
+# RUN apk update && apk add --no-cache bash
+RUN apk update
+RUN apk add --no-cache --virtual .build-deps gcc libc-dev libxslt-dev && \
+    apk add --no-cache libxslt && \
+    apk add --no-cache python3-dev build-base linux-headers pcre-dev && \
+    apk add --no-cache libmagic && \
+    apk add --no-cache zsh && \
+    apk add --no-cache curl && \
+    apk add --no-cache git && \
+    apk add --no-cache util-linux
+
+# Install Oh My Zsh for Root and Node user
+# RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+
+COPY requirements.txt /tmp/
+RUN pip install -r /tmp/requirements.txt
+# RUN pip install pytest
+RUN pip install uwsgi
+RUN apk del .build-deps
+
+# Create a group and user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN cp -R /root/.oh-my-zsh /home/appuser && \
+    cp /root/.zsh* /home/appuser && \
+    sed -i "s/\/root/\/home\/appuser/g" /home/appuser/.zshrc
+COPY . /home/appuser/${PROJECT_NAME}/
+WORKDIR /home/appuser/${PROJECT_NAME}
+RUN chown -R appuser:appgroup /home/appuser
+USER appuser
+
+EXPOSE 8000
+
+# CMD ["zsh"]
+ENTRYPOINT ["uwsgi", "--http-socket", "0.0.0.0:8000", "--wsgi-file", "wsgi.py", "--processes", "1", "--threads", "8"]

@@ -1,3 +1,4 @@
 .mypy_cache
 euphemia.egg-info
 euphemiaweb/__pycache__/
+node_modules

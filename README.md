@@ -58,6 +58,22 @@ pip install -e .
 flask run --host=0.0.0.0
 ```
 
+Or run command below
+```
+docker run -it -p 5000:5000 --env-file ./env.list.develop -v ~/webdev/python/euphemia:/opt/euphemia euphemia:de
+flask run --host=0.0.0.0
+```
+
+## For Deploy only
+```
+docker build --rm -f Dockerfile.production -t "euphemia:pro" .
+```
+
+## Testing commands to make it work
+```
+uwsgi --socket 127.0.0.1:8080 -w wsgi:application
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

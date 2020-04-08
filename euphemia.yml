@@ -1,0 +1,20 @@
+version: '3'
+services:
+  flask-euphemia:
+    build:
+      context: ~/apps/flask/euphemia
+      dockerfile: Dockerfile.production
+    container_name: flask-euphemia
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      VIRTUAL_HOST: euphemia.jasyihua.com
+      VIRTUAL_PORT: 8000
+      LETSENCRYPT_HOST: euphemia.jasyihua.com
+      LETSENCRYPT_EMAIL: me@euphemia.jasyihua.com
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

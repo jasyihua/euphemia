@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>Euphemia Web App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- styles -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>EuphemiaWeb</h1>
+      <br>
+      <div id="content"></div>
+    </div>
+    <!-- scripts -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script> -->
+    <!-- <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>     -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="/static/js/reactstrap.min.js"></script>
+    <script type="text/babel" charset="utf-8">
+      const {Button, Card, CardText, CardBody, CardTitle} = Reactstrap
+
+      class HelloWorld extends React.Component {
+        render () {
+          // return (<h2>Greetings, from EuphemiaWeb!</h2>);
+          return <Button color="danger">Danger!</Button>
+        }
+      };
+
+      class MyCard extends React.Component {
+        render () {
+          return <Card style={{ '{{ width: 300 }}' }}>
+              <CardBody>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, praesentium similique tenetur ut, explicabo deserunt porro natus nam harum architecto nihil ex incidunt magni debitis tempora quia eius aliquam aut.
+              </CardBody>
+            </Card>
+        }
+      };
+
+      ReactDOM.render(
+        // React.createElement(helloWorld, null),
+        // <h1>Hello, World!</h1>,
+        // <HelloWorld />,
+        <MyCard />,
+        document.getElementById('content')
+      );
+    </script>
+  </body>
+</html>
